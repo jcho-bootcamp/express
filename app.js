@@ -2,29 +2,28 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-let speak = {
-  pig: "Oink!",
-  cow: "Moo!",
-  dog: "Woof Woof!"
-}
-
 app.get("/", (req, res) => res.send("Hi there, welcome to my assignment!"));
 
 app.get("/speak/:animal", function (req, res) {
-  let animal = req.params.animal;
-  res.send(`The ${animal} says ${speak[animal]}`);
+  let speak = {
+    pig: "Oink!",
+    cow: "Moo!",
+    dog: "Woof Woof!"
+  }
+
+  let animal = req.params.animal.toLowerCase();
+
+  res.send(`The ${animal} says "${speak[animal]}"`);
 });
 
 app.get("/repeat/:str/:number", function (req, res) {
   let str = req.params.str;
   let num = Number(req.params.number);
-  let result = [];
+  let result = "";
 
   for (let i = 0; i < num; i++) {
-    result.push(str);
+    result += str + " ";
   }
-
-  result = result.join(" ");
 
   res.send(result);
 });
